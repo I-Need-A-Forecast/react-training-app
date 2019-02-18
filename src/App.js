@@ -54,7 +54,7 @@ class App extends Component {
           </pre>
           <pre>
             <label>
-              <input type="text" placeholder="password" value={this.state.info.password}
+              <input type="password" placeholder="password" value={this.state.info.password}
                 onChange={this.handleChangeFor("password")} />
             </label>
           </pre>
