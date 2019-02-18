@@ -45,7 +45,7 @@ class App extends Component {
     return (
       <div className="App">
         <h3>{this.state.status}</h3>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <pre>
             <label>
               <input type="text" placeholder="username" value={this.state.info.username}
@@ -57,6 +57,9 @@ class App extends Component {
               <input type="password" placeholder="password" value={this.state.info.password}
                 onChange={this.handleChangeFor("password")} />
             </label>
+          </pre>
+          <pre>
+            <input type="submit" value="Login" />
           </pre>
         </form>
       </div>
