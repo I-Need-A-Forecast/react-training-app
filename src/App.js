@@ -1,25 +1,64 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import axios from 'axios';
 
 class App extends Component {
+
+  state = {
+    info: {
+      username: '',
+      password: '',
+    },
+    status: null,
+  }
+
+  handleSubmit = event => {
+    event.preventDefault()
+    axios({
+      method: 'POST',
+      url: '/login',
+      data: this.state.info,
+    }).then(() => {
+      this.setState({
+        ...this.state,
+        status: "Logged In"
+      })
+    }).catch(error => {
+      console.log('ERROR', error)
+      this.setState({
+        ...this.state,
+        status: 'Login Failed'
+      })
+    })
+  }
+
+  handleChangeFor = name => event => {
+    this.setState({
+      ...this.state,
+      info: {
+        ...this.state.info,
+        [name]: event.target.value,
+      }
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <h3>{this.state.status}</h3>
+        <form>
+          <pre>
+            <label>
+              <input type="text" placeholder="username" value={this.state.info.username}
+                onChange={this.handleChangeFor("username")} />
+            </label>
+          </pre>
+          <pre>
+            <label>
+              <input type="text" placeholder="password" value={this.state.info.password}
+                onChange={this.handleChangeFor("password")} />
+            </label>
+          </pre>
+        </form>
       </div>
     );
   }
