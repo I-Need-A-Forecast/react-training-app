@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import TestApp from './data-training';
+import DataRequest from './data-query';
 import './App.css';
 import cookie from 'react-cookies';
 
@@ -73,7 +74,8 @@ class App extends Component {
           </pre>
             <input type='hidden' value={cookie.load("csrftoken")} name='csrfmiddlewaretoken' />
         </form>
-        <TestApp person={this.state.info.username}/>
+        <TestApp person={this.state.info.password}/>
+        <DataRequest />
       </div>
     );
   }
