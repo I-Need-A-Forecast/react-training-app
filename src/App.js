@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import TestApp from './data-training';
+import './App.css';
+import cookie from 'react-cookies';
+
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+
+//e.setHeaders({"X-CSRFTOKEN": cookie.load("csrftoken")});
 
 class App extends Component {
 
@@ -15,9 +23,11 @@ class App extends Component {
     event.preventDefault()
     axios({
       method: 'POST',
-      url: '/login',
+      url: '/login/new_login/',
       data: this.state.info,
-    }).then(() => {
+    }).then((response) => {
+      console.log(response);
+      
       this.setState({
         ...this.state,
         status: "Logged In"
@@ -61,7 +71,9 @@ class App extends Component {
           <pre>
             <input type="submit" value="Login" />
           </pre>
+            <input type='hidden' value={cookie.load("csrftoken")} name='csrfmiddlewaretoken' />
         </form>
+        <TestApp person={this.state.info.username}/>
       </div>
     );
   }
